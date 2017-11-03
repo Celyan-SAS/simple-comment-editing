@@ -171,6 +171,7 @@ jQuery( document ).ready( function( $ ) {
 			1.  Use Ajax to get the amount of time left to edit the comment.
 			2.  Display the result
 			3.  Set Interval
+<<<<<<< HEAD
 			*/
             $.post( ajax_url, { action: 'sce_get_time_left', comment_id: ajax_params.cid, post_id: ajax_params.pid, _ajax_nonce: simple_comment_editing.nonce }, function( response ) {
                 //Set initial timer text
@@ -265,6 +266,101 @@ jQuery( document ).ready( function( $ ) {
             text += seconds + " " + simple_comment_editing.timer.seconds[ seconds ];
         }
         /**
+=======
+//			$.post( ajax_url, { action: 'sce_get_time_left', comment_id: ajax_params.cid, post_id: ajax_params.pid, _ajax_nonce: simple_comment_editing.nonce }, function( response ) {
+//				//Set initial timer text
+//				var minutes = parseInt( response.minutes );
+//				var seconds = parseInt( response.seconds );
+//				var timer_text = sce.get_timer_text( minutes, seconds );
+//
+//				//Determine via JS if a user can edit a comment - Note that if someone were to finnagle with this, there is still a server side check when saving the comment
+//				var can_edit = response.can_edit;
+//				if ( !can_edit ) {
+//					//Remove event handlers
+//					$( element ).siblings( '.sce-textarea' ).off();
+//					$( element ).off();
+//
+//					//Remove elements
+//					$( element ).parent().remove();
+//					return;
+//				}
+//
+//				//Update the timer and show the editing interface
+//				$( element ).find( '.sce-timer' ).html( timer_text );
+//				$( element ).siblings( '.sce-textarea' ).find( '.sce-timer' ).html( timer_text );
+//				$( element ).show( 400, function() {
+//					/**
+//					* Event: sce.timer.loaded
+//					*
+//					* Event triggered after a commen's timer has been loaded
+//					*
+//					* @since 1.3.0
+//					*
+//					* @param jQuery Element of the comment
+//					*/
+//					$( element ).trigger( 'sce.timer.loaded', element );
+//				} );
+//
+//				//Save state in textarea
+//				sce.textareas[ response.comment_id ] = $( '#sce-edit-comment' + response.comment_id + ' textarea' ).val();
+//
+//				//Set interval
+//				sce.timers[ response.comment_id ] = {
+//					minutes: minutes,
+//					seconds: seconds,
+//					start: new Date().getTime(),
+//					time: 0,
+//					timer: function() {
+//
+//						timer_seconds = sce.timers[ response.comment_id ].seconds - 1;
+//						timer_minutes = sce.timers[ response.comment_id ].minutes;
+//						if ( timer_minutes <=0 && timer_seconds <= 0) {
+//
+//							//Remove event handlers
+//							$( element ).siblings( '.sce-textarea' ).off();
+//							$( element ).off();
+//
+//							//Remove elements
+//							$( element ).parent().remove();
+//							return;
+//						} else {
+//							if ( timer_seconds < 0 ) {
+//								timer_minutes -= 1; timer_seconds = 59;
+//							}
+//							var timer_text = sce.get_timer_text( timer_minutes, timer_seconds );
+//							$( element ).find( '.sce-timer' ).html(  timer_text );
+//							$( element ).siblings( '.sce-textarea' ).find( '.sce-timer' ).html( timer_text );
+//							sce.timers[ response.comment_id ].seconds = timer_seconds;
+//							sce.timers[ response.comment_id ].minutes = timer_minutes;
+//						}
+//						//Get accurate time
+//						var timer_obj = sce.timers[ response.comment_id ];
+//						timer_obj.time += 1000;
+//						var diff = ( new Date().getTime() - timer_obj.start ) - timer_obj.time;
+//						window.setTimeout( timer_obj.timer, ( 1000 - diff ) );
+//					}
+//				};
+//				window.setTimeout( sce.timers[ response.comment_id ].timer, 1000 );
+//
+//
+//			}, 'json' );
+		} );
+	};
+	sce.get_timer_text = function( minutes, seconds ) {
+		if (seconds < 0) { minutes -= 1; seconds = 59; }
+		//Create timer text
+		var text = '';
+		if (minutes >= 1) {
+			text += minutes + " " + simple_comment_editing.timer.minutes[ minutes ];
+			if ( seconds > 0 ) {
+				text += " " + simple_comment_editing.and + " ";
+			}
+		}
+		if (seconds > 0) {
+			text += seconds + " " + simple_comment_editing.timer.seconds[ seconds ];
+		}
+		/**
+>>>>>>> 1bc079c3d22754feb7923c829370daacecf524d9
 		* JSFilter: sce.comment.timer.text
 		*
 		* Filter triggered before a timer is returned

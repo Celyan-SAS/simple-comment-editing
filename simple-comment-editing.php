@@ -85,9 +85,9 @@ class Simple_Comment_Editing {
 		
 		/* Begin Filters */
 		if ( !is_feed() && !defined( 'DOING_SCE' ) ) {
-			add_filter( 'comment_excerpt', array( $this, 'add_edit_interface'), 1000, 2 );
-			add_filter( 'comment_text', array( $this, 'add_edit_interface'), 1000, 2 );
-			add_filter( 'thesis_comment_text', array( $this, 'add_edit_interface'), 1000, 2 );
+//			add_filter( 'comment_excerpt', array( $this, 'add_edit_interface'), 1000, 2 );
+//			add_filter( 'comment_text', array( $this, 'add_edit_interface'), 1000, 2 );
+//			add_filter( 'thesis_comment_text', array( $this, 'add_edit_interface'), 1000, 2 );
 		}
 		
 		//Epoch Compatibility
@@ -104,16 +104,17 @@ class Simple_Comment_Editing {
 	 */
 	public function add_edit_interface( $comment_content, $passed_comment = false) {
 		global $comment; // For Thesis
+                
 		if ( ( ! $comment && ! $passed_comment ) || empty( $comment_content ) ) return $comment_content;
 		if ( $passed_comment ) {
-			$comment = (object)$passed_comment;
+			$comment = $passed_comment;
 		}
-
+        
 		$comment_id = absint( $comment->comment_ID );
 		$post_id = absint( $comment->comment_post_ID );
 				
 		//Check to see if a user can edit their comment
-		if ( !$this->can_edit( $comment_id, $post_id ) ) return $comment_content;
+        if ( !$this->can_edit( $comment_id, $post_id ) ) return $comment_content;
 
 		//Variables for later
 		$original_content = $comment_content;
@@ -126,7 +127,7 @@ class Simple_Comment_Editing {
 		$sce_content = sprintf( '<div id="sce-edit-comment%d" class="sce-edit-comment">', $comment_id );
 		
 		//Edit Button
-		$sce_content .= '<div class="sce-edit-button" style="display:none;">';
+		$sce_content .= '<div class="sce-edit-button" style="">'; //display:none;
 		$ajax_edit_url = add_query_arg( array( 'cid' => $comment_id, 'pid' => $post_id ) , wp_nonce_url( admin_url( 'admin-ajax.php', $this->scheme ), 'sce-edit-comment' . $comment_id ) );
 		
 		/**
@@ -139,21 +140,22 @@ class Simple_Comment_Editing {
 		* @param string Translated click to edit text
 		*/
 		$click_to_edit_text = apply_filters( 'sce_text_edit', __( 'Click to Edit', 'simple-comment-editing' ) );
-		
-		$sce_content .= sprintf( '<a href="%s">%s</a>', esc_url( $ajax_edit_url ), esc_html( $click_to_edit_text ) );
-		$sce_content .= '&nbsp;&ndash;&nbsp;';
-		$sce_content .= '<span class="sce-timer"></span>';
+        
+        //$sce_content .= sprintf( '<a href="%s">%s</a>', esc_url( $ajax_edit_url ), esc_html( $click_to_edit_text ) );
+        $sce_content .= '<a href="'.esc_url( $ajax_edit_url ).'">'.esc_html( $click_to_edit_text ).'</a>';        
+		//$sce_content .= '&nbsp;&ndash;&nbsp;';
+		//$sce_content .= '<span class="sce-timer"></span>';
 		$sce_content .= '</div><!-- .sce-edit-button -->';
-		
+
 		//Loading button
 		$sce_content .= '<div class="sce-loading" style="display: none;">';
 		$sce_content .= sprintf( '<img src="%1$s" title="%2$s" alt="%2$s" />', esc_url( $this->loading_img ), esc_attr__( 'Loading', 'simple-comment-editing' ) );
 		$sce_content .= '</div><!-- sce-loading -->';
-		
+               
 		//Textarea
 		$textarea_content = '<div class="sce-textarea" style="display: none;">';
 		$textarea_content .= '<div class="sce-comment-textarea">';
-		$textarea_content .= '<textarea class="sce-comment-text" cols="45" rows="8">%s</textarea>';
+		$textarea_content .= '<textarea class="sce-comment-text" cols="85" rows="10">%s</textarea>';
 		$textarea_content .= '</div><!-- .sce-comment-textarea -->';
 		
 		/**
@@ -228,7 +230,7 @@ class Simple_Comment_Editing {
 		$sce_content .= $textarea_content . '</div><!-- .sce-edit-comment -->';
 		
 		//Status Area
-		$sce_content .= sprintf( '<div id="sce-edit-comment-status%d" class="sce-status" style="display: none;"></div><!-- .sce-status -->', $comment_id );
+		$sce_content .= sprintf( '<div id="sce-edit-comment-statusbob%d" class="sce-status" style="display: none;"></div><!-- .sce-status -->', $comment_id );
 		
 		/**
 		* Filter: sce_content
@@ -240,10 +242,16 @@ class Simple_Comment_Editing {
 		* @param string  $sce_content SCE content 
 		* @param int     $comment_id  Comment ID of the comment
 		*/
+        
+//echo "<pre>", print_r("before filter", 1), "</pre>";
+//echo "<pre>", print_r($sce_content, 1), "</pre>";
+        
 		$sce_content = apply_filters( 'sce_content', $sce_content, $comment_id );
 		
 		//Return content
 		$comment_content = $comment_wrapper . $sce_content;
+                
+        
 		return $comment_content;
 	
 	} //end add_edit_interface
@@ -274,14 +282,14 @@ class Simple_Comment_Editing {
 	 	if ( !$load_scripts ) return;
 	 	
 	 	
-	 	$main_script_uri = $this->get_plugin_url( '/js/simple-comment-editing.min.js' );
-	 	$hooks_script_url = $this->get_plugin_url( '/js/event-manager.min.js' );
-	 	if ( defined( 'SCRIPT_DEBUG' ) ) {
-	 		if ( SCRIPT_DEBUG == true ) {
+//	 	$main_script_uri = $this->get_plugin_url( '/js/simple-comment-editing.min.js' );
+//	 	$hooks_script_url = $this->get_plugin_url( '/js/event-manager.min.js' );
+//	 	if ( defined( 'SCRIPT_DEBUG' ) ) {
+//	 		if ( SCRIPT_DEBUG == true ) {
 	 			$main_script_uri = $this->get_plugin_url( '/js/simple-comment-editing.js' );
 	 			$hooks_script_url = $this->get_plugin_url( '/js/event-manager.js' );
-	 		}
-	 	}
+//	 		}
+//	 	}
 	 	require_once( 'class-sce-timer.php' );
 	 	$timer_internationalized = new SCE_Timer();
 	 	wp_enqueue_script( 'wp-hooks', $hooks_script_url, array(), '20151103', true ); //https://core.trac.wordpress.org/attachment/ticket/21170/21170-2.patch
@@ -312,6 +320,10 @@ class Simple_Comment_Editing {
 	 * @return JSON object e.g. {minutes:4,seconds:5}
 	 */
 	 public function ajax_get_time_left() {
+         
+         //CELYAN
+         die( json_encode( true ) );
+         
 		check_ajax_referer( 'sce-general-ajax-nonce' );
 	 	global $wpdb;
 	 	$comment_id = absint( $_POST[ 'comment_id' ] );
@@ -647,37 +659,64 @@ class Simple_Comment_Editing {
 	 * @return bool true if can edit, false if not
 	 */
 	public function can_edit( $comment_id, $post_id ) {
-		global $comment;
-		if ( !is_object( $comment ) ) $comment = get_comment( $comment_id, OBJECT );
-		
-		//Check to see if time has elapsed for the comment
-		$comment_timestamp = strtotime( $comment->comment_date );
-		$time_elapsed = current_time( 'timestamp', get_option( 'gmt_offset' ) ) - $comment_timestamp;
-		$minutes_elapsed = ( ( ( $time_elapsed % 604800 ) % 86400 )  % 3600 ) / 60;
-		
-		if ( ( $minutes_elapsed - $this->comment_time ) >= 0 ) return false;
-		$comment_date_gmt = date( 'Y-m-d', strtotime( $comment->comment_date_gmt ) );
-		$cookie_hash = md5( $comment->comment_author_IP . $comment_date_gmt . $comment->user_id . $comment->comment_agent );
-			
-		
-		$cookie_value = $this->get_cookie_value( 'SimpleCommentEditing' . $comment_id . $cookie_hash );
-		$comment_meta_hash = get_comment_meta( $comment_id, '_sce', true );
-		if ( $cookie_value !== $comment_meta_hash ) return false;
-		
-		//All is well, the person/place/thing can edit the comment
-		/**
-		* Filter: sce_can_edit
-		*
-		* Determine if a user can edit the comment
-		*
-		* @since 1.3.2
-		*
-		* @param bool  true If user can edit the comment
-		* @param object $comment Comment object user has left
-		* @param int $comment_id Comment ID of the comment
-		* @param int $post_id Post ID of the comment
-		*/
-		return apply_filters( 'sce_can_edit', true, $comment, $comment_id, $post_id );
+        //CELYAN -> change that, it's check only the time, we nned to check the user id and it's status (abonnement)
+return true;
+        
+        if(!is_user_logged_in()){
+            return false;
+        }
+        
+        $user_id = get_current_user_id();
+        $comment = get_comment($comment_id);
+        if(!$comment){
+            return false;
+        }
+        $comment_author_id = $comment->user_id;
+        
+        if($comment_author_id != $user_id){
+            return false;
+        }
+        
+        //check if abonné
+        if (function_exists('pf_show_link')){
+            if(!yd_adschecker()){ //est abonné
+                return true;
+            }else{
+                return false;
+            }
+        }//if pf_show_link
+        
+//		global $comment;
+//		if ( !is_object( $comment ) ) $comment = get_comment( $comment_id, OBJECT );
+//		
+//		//Check to see if time has elapsed for the comment
+//		$comment_timestamp = strtotime( $comment->comment_date );
+//		$time_elapsed = current_time( 'timestamp', get_option( 'gmt_offset' ) ) - $comment_timestamp;
+//		$minutes_elapsed = ( ( ( $time_elapsed % 604800 ) % 86400 )  % 3600 ) / 60;
+//		
+//		if ( ( $minutes_elapsed - $this->comment_time ) >= 0 ) return false;
+//		$comment_date_gmt = date( 'Y-m-d', strtotime( $comment->comment_date_gmt ) );
+//		$cookie_hash = md5( $comment->comment_author_IP . $comment_date_gmt . $comment->user_id . $comment->comment_agent );
+//			
+//		
+//		$cookie_value = $this->get_cookie_value( 'SimpleCommentEditing' . $comment_id . $cookie_hash );
+//		$comment_meta_hash = get_comment_meta( $comment_id, '_sce', true );
+//		if ( $cookie_value !== $comment_meta_hash ) return false;
+//		
+//		//All is well, the person/place/thing can edit the comment
+//		/**
+//		* Filter: sce_can_edit
+//		*
+//		* Determine if a user can edit the comment
+//		*
+//		* @since 1.3.2
+//		*
+//		* @param bool  true If user can edit the comment
+//		* @param object $comment Comment object user has left
+//		* @param int $comment_id Comment ID of the comment
+//		* @param int $post_id Post ID of the comment
+//		*/
+//		return apply_filters( 'sce_can_edit', true, $comment, $comment_id, $post_id );
 	} //end can_edit
 	
 	/**

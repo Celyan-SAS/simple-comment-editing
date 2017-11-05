@@ -160,8 +160,8 @@ jQuery( document ).ready( function( $ ) {
 
                     }, 'json' );
                 } );
-                $( element ).parent().siblings( '.sce-comment' ).toggleClass('.sce-hide');
-                $( element ).parent().siblings( '.reply' ).toggleClass('.sce-hide');
+//                $( element ).parent().siblings( '.sce-comment' ).toggleClass('.sce-hide');
+//                $( element ).parent().siblings( '.reply' ).toggleClass('.sce-hide');
             } );
 
             //Load timers

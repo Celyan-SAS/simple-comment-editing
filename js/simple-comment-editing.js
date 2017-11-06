@@ -5,6 +5,7 @@ jQuery( document ).ready( function( $ ) {
             var ajax_url = $( this ).find( 'a:first' ).attr( 'href' );
             var ajax_params = wpAjax.unserialize( ajax_url );
             var element = this;
+            this.mycid = ajax_params.cid;
 
             //Set up event for when the edit button is clicked
             $( element ).on( 'click', 'a', function( e ) {
@@ -302,8 +303,7 @@ console.log(sce.textareas[ajax_params.cid]);
     console.log("SEE IF WE PASS HERE");
     console.log(sce);
     console.log("TEST");
-    console.log(sce.ajax_params);
-    console.log(sce.ajax_params.cid);
+    console.log(sce.mycid);
     //sce.textareas[ ajax_params.cid  ] = $( '#sce-edit-comment' + ajax_params.cid  + ' textarea' ).val()
     
 

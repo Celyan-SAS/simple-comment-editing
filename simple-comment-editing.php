@@ -584,8 +584,16 @@ class Simple_Comment_Editing {
 		
         //Add history to the comment
         $old_coment = get_comment($comment_id);
+        
+        echo "<pre>", print_r("old comment", 1), "</pre>";
+        echo "<pre>", print_r($old_coment, 1), "</pre>";
+        
         if($old_coment){
             $history_all = get_comment_meta( $comment_id, "comment_history",true);
+            
+            echo "<pre>", print_r("history_all", 1), "</pre>";
+            echo "<pre>", print_r($history_all, 1), "</pre>";
+            
             if(!$history_all){
                 $history_all = array();
             }
@@ -596,7 +604,14 @@ class Simple_Comment_Editing {
             $history["old_content"] = $old_coment;
 
             $history_all[] = $history;        
-            update_comment_meta( $comment_id, "comment_history", $history_all);
+            
+            echo "<pre>", print_r("before save", 1), "</pre>";
+            echo "<pre>", print_r($history_all, 1), "</pre>";
+            
+            $resul_update_comment = update_comment_meta( $comment_id, "comment_history", $history_all);
+            
+            echo "<pre>", print_r("resul_update_comment", 1), "</pre>";
+            echo "<pre>", print_r($resul_update_comment, 1), "</pre>";
         }
         
 		//Save the comment

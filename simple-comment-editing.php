@@ -583,19 +583,9 @@ class Simple_Comment_Editing {
 		$comment_to_save = apply_filters( 'sce_save_before', $comment_to_save, $post_id, $comment_id );
 		
         //Add history to the comment
-        $old_comment = get_comment($comment_id);
-        
-        echo "<pre>", print_r("old comment", 1), "</pre>";
-        echo "<pre>", print_r($old_comment->comment_content, 1), "</pre>";
-        global $wpdb;
-        echo "<pre>", print_r($wpdb->commentmeta, 1), "</pre>";
-        
-        if($old_coment){
-            $history_all = get_comment_meta( $comment_id, "comment_history",true);
-            
-            echo "<pre>", print_r("history_all", 1), "</pre>";
-            echo "<pre>", print_r($history_all, 1), "</pre>";
-            
+        $old_comment = get_comment($comment_id);        
+        if($old_comment && isset($old_comment->comment_content)){
+            $history_all = get_comment_meta( $comment_id, "comment_history",true);            
             if(!$history_all){
                 $history_all = array();
             }
@@ -604,16 +594,8 @@ class Simple_Comment_Editing {
             $history["auth_IP"] = $_SERVER['REMOTE_ADDR'];
             $history["date"] = date('Y-m-d H:i:s');
             $history["old_content"] = $old_comment->comment_content;
-
-            $history_all[] = $history;        
-            
-            echo "<pre>", print_r("before save", 1), "</pre>";
-            echo "<pre>", print_r($history_all, 1), "</pre>";
-            
+            $history_all[] = $history;                    
             $resul_update_comment = update_comment_meta( $comment_id, "comment_history", $history_all);
-            
-            echo "<pre>", print_r("resul_update_comment", 1), "</pre>";
-            echo "<pre>", print_r($resul_update_comment, 1), "</pre>";
         }
         
 		//Save the comment

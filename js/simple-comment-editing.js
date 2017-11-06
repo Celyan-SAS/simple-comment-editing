@@ -5,7 +5,12 @@ jQuery( document ).ready( function( $ ) {
             var ajax_url = $( this ).find( 'a:first' ).attr( 'href' );
             var ajax_params = wpAjax.unserialize( ajax_url );
             var element = this;
+            
+            console.log("HERE == ");
+            console.log(ajax_params.cid);
             this.mycid = ajax_params.cid;
+            console.log("SAVE HERE?");
+            console.log($( '#sce-edit-comment' + ajax_params.cid  + ' textarea' ).val());
 
             //Set up event for when the edit button is clicked
             $( element ).on( 'click', 'a', function( e ) {

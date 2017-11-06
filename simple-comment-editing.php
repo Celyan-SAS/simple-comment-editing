@@ -676,7 +676,7 @@ class Simple_Comment_Editing {
 	 */
 	public function can_edit( $comment_id, $post_id ) {
         //CELYAN -> change that, it's check only the time, we nned to check the user id and it's status (abonnement)
-return true;
+//return true;
         
         if(!is_user_logged_in()){
             return false;

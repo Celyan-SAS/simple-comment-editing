@@ -587,6 +587,7 @@ class Simple_Comment_Editing {
         
         echo "<pre>", print_r("old comment", 1), "</pre>";
         echo "<pre>", print_r($old_comment->comment_content, 1), "</pre>";
+        global $wpdb;
         echo "<pre>", print_r($wpdb->commentmeta, 1), "</pre>";
         
         if($old_coment){

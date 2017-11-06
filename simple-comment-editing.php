@@ -68,8 +68,8 @@ class Simple_Comment_Editing {
 		add_action( 'wp_enqueue_scripts', array( $this, 'add_scripts' ) );
 		
 		//Ajax
-		add_action( 'wp_ajax_sce_get_time_left', array( $this, 'ajax_get_time_left' ) );
-		add_action( 'wp_ajax_nopriv_sce_get_time_left', array( $this, 'ajax_get_time_left' ) );
+//		add_action( 'wp_ajax_sce_get_time_left', array( $this, 'ajax_get_time_left' ) );
+//		add_action( 'wp_ajax_nopriv_sce_get_time_left', array( $this, 'ajax_get_time_left' ) );
 		add_action( 'wp_ajax_sce_save_comment', array( $this, 'ajax_save_comment' ) );
 		add_action( 'wp_ajax_nopriv_sce_save_comment', array( $this, 'ajax_save_comment' ) );
 		add_action( 'wp_ajax_sce_delete_comment', array( $this, 'ajax_delete_comment' ) );

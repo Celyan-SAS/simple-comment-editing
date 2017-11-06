@@ -30,6 +30,8 @@ jQuery( document ).ready( function( $ ) {
                     $( element ).fadeIn( 'fast' );
                     $( '#sce-edit-comment' + ajax_params.cid  + ' textarea' ).val( sce.textareas[ajax_params.cid] );
                     
+                    $('#sce-comment243289').html();
+                    
 console.log("PARAM");
 console.log( ajax_params.cid);
 console.log("TEXT");
@@ -295,6 +297,15 @@ console.log(sce.textareas[ajax_params.cid]);
     $( '.sce-edit-button' ).simplecommentediting();
 
     $( '.sce-edit-button' ).on( 'sce.timer.loaded', SCE_comment_scroll );
+    
+    
+    console.log("SEE IF WE PASS HERE");
+    console.log(sce);
+    console.log("TEST");
+    console.log(sce.ajax_params);
+    console.log(sce.ajax_params.cid);
+    //sce.textareas[ ajax_params.cid  ] = $( '#sce-edit-comment' + ajax_params.cid  + ' textarea' ).val()
+    
 
     //Third-party plugin compatibility
     $( 'body' ).on( 'comment.posted', function( event, post_id, comment_id ) {

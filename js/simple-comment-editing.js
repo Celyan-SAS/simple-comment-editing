@@ -6,11 +6,8 @@ jQuery( document ).ready( function( $ ) {
             var ajax_params = wpAjax.unserialize( ajax_url );
             var element = this;
             
-            console.log("HERE == ");
-            console.log(ajax_params.cid);
-            this.mycid = ajax_params.cid;
-            console.log("SAVE HERE?");
-            console.log($( '#sce-edit-comment' + ajax_params.cid  + ' textarea' ).val());
+            //first time save
+            sce.textareas[ajax_params.cid] = $( '#sce-edit-comment' + ajax_params.cid  + ' textarea' ).val();
 
             //Set up event for when the edit button is clicked
             $( element ).on( 'click', 'a', function( e ) {
@@ -37,12 +34,7 @@ jQuery( document ).ready( function( $ ) {
                     $( '#sce-edit-comment' + ajax_params.cid  + ' textarea' ).val( sce.textareas[ajax_params.cid] );
                     
                     $('#sce-comment243289').html();
-                    
-console.log("PARAM");
-console.log( ajax_params.cid);
-console.log("TEXT");
-console.log(sce.textareas[ajax_params.cid]);
-                    
+                                        
                 } );
                 $( element ).parent().siblings( '.sce-comment' ).toggleClass('sce-hide');
                 $( element ).parent().siblings( '.reply' ).toggleClass('sce-hide');
@@ -304,14 +296,6 @@ console.log(sce.textareas[ajax_params.cid]);
 
     $( '.sce-edit-button' ).on( 'sce.timer.loaded', SCE_comment_scroll );
     
-    
-    console.log("SEE IF WE PASS HERE");
-    console.log(sce);
-    console.log("TEST");
-    console.log(sce.mycid);
-    //sce.textareas[ ajax_params.cid  ] = $( '#sce-edit-comment' + ajax_params.cid  + ' textarea' ).val()
-    
-
     //Third-party plugin compatibility
     $( 'body' ).on( 'comment.posted', function( event, post_id, comment_id ) {
         sce.set_comment_cookie( post_id, comment_id, function( comment_id ) {

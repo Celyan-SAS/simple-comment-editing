@@ -582,6 +582,23 @@ class Simple_Comment_Editing {
 		*/
 		$comment_to_save = apply_filters( 'sce_save_before', $comment_to_save, $post_id, $comment_id );
 		
+        //Add history to the comment
+        $old_coment = get_comment($comment_id);
+        if($old_coment){
+            $history_all = get_comment_meta( $comment_id, "comment_history",true);
+            if(!$history_all){
+                $history_all = array();
+            }
+            $history = array();
+            $history["auth_ID"] = get_current_user_id();
+            $history["auth_IP"] = $_SERVER['REMOTE_ADDR'];
+            $history["date"] = date('Y-m-d H:i:s');
+            $history["old_content"] = $old_coment;
+
+            $history_all[] = $history;        
+            update_comment_meta( $comment_id, "comment_history", $history_all);
+        }
+        
 		//Save the comment
 		wp_update_comment( $comment_to_save );
 		

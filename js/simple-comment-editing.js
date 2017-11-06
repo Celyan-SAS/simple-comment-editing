@@ -16,8 +16,8 @@ jQuery( document ).ready( function( $ ) {
                     $( element ).siblings( '.sce-textarea' ).fadeIn( 'fast', function() {
                         $( element ).siblings( '.sce-textarea' ).find( 'textarea:first' ).focus();
                     } );
-                    $( element ).parent().siblings( '.sce-comment' ).toggleClass('.sce-hide');
-                    $( element ).parent().siblings( '.reply' ).toggleClass('.sce-hide');
+                    $( element ).parent().siblings( '.sce-comment' ).toggleClass('sce-hide');
+                    $( element ).parent().siblings( '.reply' ).toggleClass('sce-hide');
                 } );
             } );
 
@@ -30,8 +30,8 @@ jQuery( document ).ready( function( $ ) {
                     $( element ).fadeIn( 'fast' );
                     $( '#sce-edit-comment' + ajax_params.cid  + ' textarea' ).val( sce.textareas[ ajax_params.cid  ] );
                 } );
-                $( element ).parent().siblings( '.sce-comment' ).toggleClass('.sce-hide');
-                $( element ).parent().siblings( '.reply' ).toggleClass('.sce-hide');
+                $( element ).parent().siblings( '.sce-comment' ).toggleClass('sce-hide');
+                $( element ).parent().siblings( '.reply' ).toggleClass('sce-hide');
             } );
 
             function sce_delete_comment( element, ajax_params ) {
@@ -160,8 +160,8 @@ jQuery( document ).ready( function( $ ) {
 
                     }, 'json' );
                 } );
-                $( element ).parent().siblings( '.sce-comment' ).toggleClass('.sce-hide');
-                $( element ).parent().siblings( '.reply' ).toggleClass('.sce-hide');
+                $( element ).parent().siblings( '.sce-comment' ).toggleClass('sce-hide');
+                $( element ).parent().siblings( '.reply' ).toggleClass('sce-hide');
             } );
 
             //Load timers

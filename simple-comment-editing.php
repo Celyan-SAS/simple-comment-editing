@@ -601,7 +601,8 @@ class Simple_Comment_Editing {
             $history = array();
             $history["auth_ID"] = get_current_user_id();
             $history["auth_IP"] = $_SERVER['REMOTE_ADDR'];
-            $history["date"] = current_time('mysql',true); //date('Y-m-d H:i:s');
+            date_default_timezone_set("Europe/Paris");
+            $history["date"] = date('Y-m-d H:i:s');
             $history["old_content"] = $old_comment->comment_content;
             $history_all[] = $history;                    
             $resul_update_comment = update_comment_meta( $comment_id, "comment_history", $history_all);

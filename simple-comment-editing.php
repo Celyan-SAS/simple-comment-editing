@@ -694,45 +694,16 @@ class Simple_Comment_Editing {
         }
         
         //check if abonné
-        if (function_exists('pf_show_link')){
-            if(!yd_adschecker()){ //est abonné
-                return true;
-            }else{
-                return false;
-            }
-        }//if pf_show_link
+//        if (function_exists('pf_show_link')){
+//            if(!yd_adschecker()){ //est abonné
+//                return true;
+//            }else{
+//                return false;
+//            }
+//        }//if pf_show_link
         
-//		global $comment;
-//		if ( !is_object( $comment ) ) $comment = get_comment( $comment_id, OBJECT );
-//		
-//		//Check to see if time has elapsed for the comment
-//		$comment_timestamp = strtotime( $comment->comment_date );
-//		$time_elapsed = current_time( 'timestamp', get_option( 'gmt_offset' ) ) - $comment_timestamp;
-//		$minutes_elapsed = ( ( ( $time_elapsed % 604800 ) % 86400 )  % 3600 ) / 60;
-//		
-//		if ( ( $minutes_elapsed - $this->comment_time ) >= 0 ) return false;
-//		$comment_date_gmt = date( 'Y-m-d', strtotime( $comment->comment_date_gmt ) );
-//		$cookie_hash = md5( $comment->comment_author_IP . $comment_date_gmt . $comment->user_id . $comment->comment_agent );
-//			
-//		
-//		$cookie_value = $this->get_cookie_value( 'SimpleCommentEditing' . $comment_id . $cookie_hash );
-//		$comment_meta_hash = get_comment_meta( $comment_id, '_sce', true );
-//		if ( $cookie_value !== $comment_meta_hash ) return false;
-//		
-//		//All is well, the person/place/thing can edit the comment
-//		/**
-//		* Filter: sce_can_edit
-//		*
-//		* Determine if a user can edit the comment
-//		*
-//		* @since 1.3.2
-//		*
-//		* @param bool  true If user can edit the comment
-//		* @param object $comment Comment object user has left
-//		* @param int $comment_id Comment ID of the comment
-//		* @param int $post_id Post ID of the comment
-//		*/
-//		return apply_filters( 'sce_can_edit', true, $comment, $comment_id, $post_id );
+        return true;        
+        
 	} //end can_edit
 	
 	/**

@@ -651,6 +651,16 @@ class Simple_Comment_Editing {
 		}
 		
 		$comment_to_return = $this->get_comment( $comment_id );
+        
+        $history_all = get_comment_meta( $comment_id, "comment_history",true);
+        $text_edition = "";
+        if($history_all){
+            $lastchange = end($history_all);
+            $date_timesptamp = strtotime($lastchange['date']);
+            $text_edition = '<span class="comment_edit_edited">Ce commentaire à été modifié par son auteur le '.date('d/m/Y',$date_timesptamp).' à '.date('H',$date_timesptamp).'h'.date('i',$date_timesptamp).'</span>';
+        }
+        $comment_content_to_return = $comment_content_to_return.$text_edition;
+        
 		
 		/**
 		 * Filter: sce_return_comment_text
@@ -665,7 +675,7 @@ class Simple_Comment_Editing {
 		 * @param int     Comment ID
 		 */
 		$comment_content_to_return = apply_filters( 'sce_return_comment_text', $this->get_comment_content( $comment_to_return ), $comment_to_return, $post_id, $comment_id );
-		
+		        
 		//Ajax response
 		$return[ 'comment_text' ] = $comment_content_to_return;
 		$return[ 'error' ] = '';

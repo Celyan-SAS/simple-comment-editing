@@ -246,6 +246,15 @@ class Simple_Comment_Editing {
 //echo "<pre>", print_r("before filter", 1), "</pre>";
 //echo "<pre>", print_r($sce_content, 1), "</pre>";
         
+        $history_all = get_comment_meta( $comment_id, "comment_history",true);
+        $text_edition = "";
+        if($history_all){
+            $lastchange = end($history_all);
+            $date_timesptamp = strtotime($lastchange['date']);
+            $text_edition = '<span class="comment_edit_edited">Ce commentaire à été modifié par son auteur le '.date('d/m/Y',$date_timesptamp).' à '.date('H',$date_timesptamp).'h'.date('m',$date_timesptamp).'</span>';
+        }
+        $sce_content = $sce_content.$text_edition;
+        
 		$sce_content = apply_filters( 'sce_content', $sce_content, $comment_id );
 		
 		//Return content

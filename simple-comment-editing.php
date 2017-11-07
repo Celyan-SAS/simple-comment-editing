@@ -251,7 +251,7 @@ class Simple_Comment_Editing {
         if($history_all){
             $lastchange = end($history_all);
             $date_timesptamp = strtotime($lastchange['date']);
-            $text_edition = '<span class="comment_edit_edited">Ce commentaire à été modifié par son auteur le '.date('d/m/Y',$date_timesptamp).' à '.date('H',$date_timesptamp).'h'.date('m',$date_timesptamp).'</span>';
+            $text_edition = '<span class="comment_edit_edited">Ce commentaire à été modifié par son auteur le '.date('d/m/Y',$date_timesptamp).' à '.date('H',$date_timesptamp).'h'.date('i',$date_timesptamp).'</span>';
         }
         $sce_content = $sce_content.$text_edition;
         
@@ -601,7 +601,7 @@ class Simple_Comment_Editing {
             $history = array();
             $history["auth_ID"] = get_current_user_id();
             $history["auth_IP"] = $_SERVER['REMOTE_ADDR'];
-            $history["date"] = date('Y-m-d H:i:s');
+            $history["date"] = current_time('mysql',true); //date('Y-m-d H:i:s');
             $history["old_content"] = $old_comment->comment_content;
             $history_all[] = $history;                    
             $resul_update_comment = update_comment_meta( $comment_id, "comment_history", $history_all);

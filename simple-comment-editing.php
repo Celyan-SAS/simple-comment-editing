@@ -659,7 +659,7 @@ class Simple_Comment_Editing {
             $date_timesptamp = strtotime($lastchange['date']);
             $text_edition = '<span class="comment_edit_edited">Ce commentaire à été modifié par son auteur le '.date('d/m/Y',$date_timesptamp).' à '.date('H',$date_timesptamp).'h'.date('i',$date_timesptamp).'</span>';
         }
-        $comment_content_to_return = $comment_content_to_return.$text_edition;
+        $comment_to_return = $comment_to_return.$text_edition;
         
 		
 		/**

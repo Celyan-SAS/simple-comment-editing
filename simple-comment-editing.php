@@ -301,8 +301,8 @@ class Simple_Comment_Editing {
 //	 	}
 	 	require_once( 'class-sce-timer.php' );
 	 	$timer_internationalized = new SCE_Timer();
-	 	wp_enqueue_script( 'wp-hooks-sce', $hooks_script_url, array(), '20151103', true ); //https://core.trac.wordpress.org/attachment/ticket/21170/21170-2.patch
-	 	wp_enqueue_script( 'simple-comment-editing', $main_script_uri, array( 'jquery', 'wp-ajax-response' ), '20151021', true );
+	 	wp_enqueue_script( 'wp-hooks-sce', $hooks_script_url, array(), '20171109', true ); //https://core.trac.wordpress.org/attachment/ticket/21170/21170-2.patch
+	 	wp_enqueue_script( 'simple-comment-editing', $main_script_uri, array( 'jquery', 'wp-ajax-response' ), '20171109', true );
 	 	
 	 	wp_localize_script( 'simple-comment-editing', 'simple_comment_editing', array(
 	 		'and'                   => __( 'and', 'simple-comment-editing' ),

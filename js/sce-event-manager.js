@@ -1,5 +1,5 @@
 ( function( window, undefined ) {
-	//'use strict';
+    'use strict';
 
 	/**
 	 * Handles managing all events for whatever you plug it into. Priorities for hooks are based on lowest to highest in

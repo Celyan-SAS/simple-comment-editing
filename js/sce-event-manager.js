@@ -1,11 +1,11 @@
 ( function( window, undefined ) {
-	'use strict';
+	//'use strict';
 
 	/**
 	 * Handles managing all events for whatever you plug it into. Priorities for hooks are based on lowest to highest in
 	 * that, lowest priority hooks are fired first.
 	 */
-	var EventManager = function() {
+	var EventManagerSCE = function() {
 		var slice = Array.prototype.slice;
 		
 		/**
@@ -243,6 +243,6 @@
 	};
 	
 	window.wp = window.wp || {};
-	window.wp.hooks = new EventManager();
+    window.wp.hooks = new EventManagerSCE();
 
 } )( window );

@@ -275,6 +275,13 @@ class Simple_Comment_Editing {
 	 */
 	 public function add_scripts() {
 	 	if ( !is_single() && !is_singular() && !is_page() ) return;
+        
+        
+        //celyan esception si on est dans la page proposer un evenement
+        if(preg_match('proposition-evenement',$_SERVER['REQUEST_URI'])){
+            return;
+        }
+        
 	 	
 	 	//Check if there are any cookies present, otherwise don't load the scripts - WPAC_PLUGIN_NAME is for wp-ajaxify-comments (if the plugin is installed, load the JavaScript file)
 	 	

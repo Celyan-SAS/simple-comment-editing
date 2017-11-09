@@ -278,7 +278,7 @@ class Simple_Comment_Editing {
         
         
         //celyan esception si on est dans la page proposer un evenement
-        if(preg_match('proposition-evenement',$_SERVER['REQUEST_URI'])){
+        if(preg_match('#proposition-evenement#',$_SERVER['REQUEST_URI'])){
             return;
         }
         
